@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState, useEffect } from 'react'
 
 function generateQuestion(): string {
   const max = 10
@@ -19,15 +21,12 @@ function generateQuestions(count: number): string[] {
   return Array(count).fill(null).map(() => generateQuestion())
 }
 
-export function generateStaticParams() {
-  // This function is used by Next.js for static generation
-  // It's not directly related to our page props, but it's required for static generation
-  return [{}] // We only have one static page, so we return an array with one empty object
-}
-
 export default function Home() {
-  // Generate questions at build time
-  const questions = generateQuestions(20)
+  const [questions, setQuestions] = useState<string[]>([])
+
+  useEffect(() => {
+    setQuestions(generateQuestions(20))
+  }, [])
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
