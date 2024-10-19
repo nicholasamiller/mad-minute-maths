@@ -3,17 +3,33 @@
 import React, { useState, useEffect } from 'react'
 
 function generateQuestion(): string {
-  const max = 10
-  const num1 = Math.floor(Math.random() * max) + 1
-  const num2 = Math.floor(Math.random() * max) + 1
-  const isAddition = Math.random() < 0.5
+  const max = 12
+  const operations = ['+', '-', '*', '/']
+  const operation = operations[Math.floor(Math.random() * operations.length)]
+  let num1: number
+  let num2: number
 
-  if (isAddition) {
-    return `${num1} + ${num2} = ____`
-  } else {
-    const largerNum = Math.max(num1, num2)
-    const smallerNum = Math.min(num1, num2)
-    return `${largerNum} - ${smallerNum} = ____`
+  switch (operation) {
+    case '+':
+      num1 = Math.floor(Math.random() * max) + 1
+      num2 = Math.floor(Math.random() * max) + 1
+      return `${num1} + ${num2} = ____`
+    case '-':
+      num1 = Math.floor(Math.random() * max) + 1
+      num2 = Math.floor(Math.random() * max) + 1
+      const largerNum = Math.max(num1, num2)
+      const smallerNum = Math.min(num1, num2)
+      return `${largerNum} - ${smallerNum} = ____`
+    case '*':
+      num1 = Math.floor(Math.random() * max) + 1
+      num2 = Math.floor(Math.random() * max) + 1
+      return `${num1} × ${num2} = ____`
+    case '/':
+      num2 = Math.floor(Math.random() * max) + 1
+      num1 = num2 * (Math.floor(Math.random() * max) + 1)
+      return `${num1} ÷ ${num2} = ____`
+    default:
+      return ''
   }
 }
 
@@ -41,7 +57,6 @@ export default function Home() {
       </div>
       <div className="mt-8">
         <p>Date: _______________</p>
-        <p>Time started: __________ Time finished: __________</p>
         <p>Score: ___ / 20</p>
       </div>
     </div>
