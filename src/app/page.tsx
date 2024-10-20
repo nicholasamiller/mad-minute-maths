@@ -11,15 +11,45 @@ function generateQuestion(): string {
 
   switch (operation) {
     case '+':
-      num1 = Math.floor(Math.random() * max) + 1
-      num2 = Math.floor(Math.random() * max) + 1
-      return `${num1} + ${num2} = ____`
     case '-':
-      num1 = Math.floor(Math.random() * max) + 1
-      num2 = Math.floor(Math.random() * max) + 1
-      const largerNum = Math.max(num1, num2)
-      const smallerNum = Math.min(num1, num2)
-      return `${largerNum} - ${smallerNum} = ____`
+      // Decide whether to use 3 or 4 terms
+      const termCount = Math.floor(Math.random() * 2) + 3 // 3 or 4
+      const terms: number[] = []
+      const ops: string[] = []
+
+      // Generate first term
+      terms.push(Math.floor(Math.random() * max) + 1)
+
+      // Generate subsequent terms and operators
+      for (let i = 1; i < termCount; i++) {
+        const operator = Math.random() < 0.5 ? '+' : '-'
+        ops.push(operator)
+        terms.push(Math.floor(Math.random() * max) + 1)
+      }
+
+      // Calculate the result to ensure it's >= 0
+      let result = terms[0]
+      for (let i = 0; i < ops.length; i++) {
+        if (ops[i] === '+') {
+          result += terms[i + 1]
+        } else {
+          result -= terms[i + 1]
+        }
+      }
+
+      // If result is negative, regenerate the question
+      if (result < 0) {
+        return generateQuestion()
+      }
+
+      // Build the equation string
+      let equation = `${terms[0]}`
+      for (let i = 0; i < ops.length; i++) {
+        equation += ` ${ops[i]} ${terms[i + 1]}`
+      }
+      equation += ' = ____'
+      return equation
+
     case '*':
       num1 = Math.floor(Math.random() * max) + 1
       num2 = Math.floor(Math.random() * max) + 1
