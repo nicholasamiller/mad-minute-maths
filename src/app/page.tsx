@@ -77,7 +77,7 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4 max-w-4xl">
       <h1 className="text-3xl font-bold mb-4 text-center">Millie&apos;s Mad Minute</h1>
-      <p className="mb-4 text-center">Complete as many problems as you can in 1 minute. Go, Millie, go!</p>
+      <p className="mb-4 text-center">Complete as many problems as you can in 1 minute.  No skipping! Go, Millie, go!</p>
       <div className="grid grid-cols-2 gap-4">
         {questions.map((question, index) => (
           <div key={index} className="border-2 border-gray-300 rounded p-4 text-center text-xl bg-white shadow">
